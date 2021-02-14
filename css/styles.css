@@ -1,0 +1,151 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700);
+
+body {
+    font-family: 'Open Sans', 'Arial', sans-serif;
+    font-size: 18px;
+}
+
+h1 {
+    font-size: 18px;    
+}
+
+input {
+    float: right;
+    width: 49%;    
+}
+
+select {
+    float: right;
+    width: 50%;
+}
+
+label {
+    margin-right: 8px;
+}
+
+div {
+    margin-bottom: 16px;
+}
+
+.smaller-16 {
+    font-size: 16px;
+}
+
+.align-left {
+    text-align: left;
+}
+
+.chosen {
+    position: relative;
+    bottom: 40px;
+}
+
+.border {
+    border: 1px black solid;
+}
+
+.width100 {
+    width: 100%;
+}
+
+.width50 {
+    width: 50%;
+}
+
+.width30 {
+    width: 30%;
+}
+
+.container {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 700px;
+    width: 100%;
+    margin: auto;
+    height: 50vh;
+}
+
+.container-ic {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 700px;
+    width: 100%;
+    margin: auto;
+    height: 100%;
+}
+
+.container-parent {
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.checkbox {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-bottom: 16px;
+}
+
+.checkbox-button {
+    align-self: center;
+}
+
+.btn-nav {
+    display: flex;
+    flex-direction: row;
+}
+
+.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin: 0px;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: 'Open Sans', 'Arial', sans-serif;
+    cursor: pointer;
+    line-height: 1.4;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+    margin-bottom: 16px;
+}
+
+@media (hover: hover) {
+    .btn:hover {
+      background-color: #ddd;
+      border-color: #aaa;
+    }
+  }
+  
+  .btn:active {
+    background-color: #ddd;
+    border-color:#000000;
+  }
+  
+  .btn:disabled {
+    background-color: #eee;
+    color: #aaa;
+    border-color: #ccc;
+    cursor: not-allowed;
+  }
+
+.center {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
