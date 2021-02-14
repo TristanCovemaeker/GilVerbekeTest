@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="nl">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Audio test</title>
+        <link rel="stylesheet" href="/GilVerbeke/css/styles.css">
+        <script src="/GilVerbeke/js/functions.js"></script>
+    </head>
+    <body>
+        <div class="container-parent">
+            <div class="container">
+                <p>Zet je geluid op een aangename hoogte en test je audio door op 'test' te klikken.</p>
+                <button class="btn" onclick="playAudio();">Test</button>
+                <div class="center">
+                    <label class="width100" for="headset">Merk hoofdtelefoon</label>
+                    <input type="text" name="headset" id="headset">
+                </div>
+                <div >
+                    <button class="btn" onclick="toPage('/GilVerbeke/pages/form.html');">Previous</button>
+                    <button class="btn" onclick="checkAudioTest();">Next</button>
+                </div>
+            </div>
+        </div>  
+    </body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consent</title>
+    <link href="/GilVerbeke/css/styles.css" rel="stylesheet">
+</head>
+<body>
+    <div>
+        <div class="container-ic">
+            <div>
+                <h1>Informed Consent</h1>
+                <div>
+                    <p class="align-left">Ik bevestig hierbij dat ik als proefpersoon deelneem aan een onderzoek van de Vakgroep Taalkunde aan de Universiteit Gent en ten volle geïnformeerd ben over:</p>
+
+                    <p class="smaller-16 align-left">(1)	De aard van het onderzoek: zijnde het doel van het onderzoek en de aard van de vragen, opdrachten die tijdens dit onderzoek gebruikt zullen worden en welke functie ze vervullen in het onderzoek;</p>
+                    <p class="smaller-16 align-left">(2)	Het feit dat ik uit vrije wil deelneem aan het onderzoek;</p>
+                    <p class="smaller-16 align-left">(3)	Het feit dat ik toestemming geef aan de proefleider om mijn resultaten te gebruiken en die toestemming elk moment kan intrekken, zonder opgave van reden, waardoor mijn resultaten niet langer deel zullen uitmaken van het onderzoek;</p>
+                    <p class="smaller-16 align-left">(4)	Het feit dat niet deelnemen of mijn deelname aan het onderzoek stopzetten op geen enkele manier invloed heeft op mijn evaluatie en/of studiebegeleiding;</p>
+                    <p class="smaller-16 align-left">(5)	Het feit dat alle resultaten van het onderzoek volledig anoniem zijn;</p>
+                    <p class="smaller-16 align-left">(6)	Het feit dat ik op aanvraag steeds toegang heb tot een samenvatting van de onderzoeksbevindingen.</p>
+                </div>
+            </div>
+            <div class="width50 checkbox">
+                <input class="checkbox-button" type="checkbox" id="consent" name="consent" onclick="disableButton();">
+                <label class="" for="consent">Ik ga akkoord</label>
+            </div>
+            <div>
+                <button class="btn" onclick="toPage('/GilVerbeke/index.html');">Previous</button>
+                <button class="btn" id="button" disabled onclick="toPage('/GilVerbeke/pages/form.html');">Next</button>
+            </div>
+        </div>
+    </div>
+    <script src="/GilVerbeke/js/functions.js"></script>
+</body>
+</html>
