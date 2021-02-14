@@ -47,14 +47,75 @@ function randomizeSounds() {
     splitSounds(pre_test_stim_random);
 }
 
-function splitSounds(array) {
-    pre_test_stim_temp = [];
+function randomizeSoundsTrial1(array) {
+    var filler = [];
+    var non_word = [];
+    var unamb = [];
+    var amb = [];
 
-    stimuliInTrial = 50;
-    numberOfTrials = array.length / stimuliInTrial;
+    for (var i = 0; i < array.length; i++) {
+        if (array[i].condition == 'filler'){
+            filler.push(array[i]);
+        } else if (array[i].condition == 'non-word') {
+            non_word.push(array[i]);
+        }else if (array[i].condition == 'unamb_crit_word_ie' || array[i].condition == 'unamb_crit_word_i') {
+            unamb.push(array[i]);
+        } else if (array[i].condition == 'amb_crit_word_i' || array[i].condition == 'amb_crit_word_ie') {
+            amb.push(array[i]);
+        }
+    }
+
+    ldt_stim_random = [];
+    for (var i = 0; i < 30; i++) {
+        var rand = randomInArray(non_word);
+        ldt_stim_random.push(non_word[rand]);
+        non_word.splice(rand, 1);
+
+        var rand = randomInArray(filler);
+        ldt_stim_random.push(filler[rand]);
+        filler.splice(rand, 1);
+
+        var rand = randomInArray(non_word);
+        ldt_stim_random.push(non_word[rand]);
+        non_word.splice(rand, 1);
+
+        var rand = randomInArray(filler);
+        ldt_stim_random.push(filler[rand]);
+        filler.splice(rand, 1);
+    }
+    for (var i = 0; i < 20; i++) {
+        var rand = randomInArray(non_word);
+        ldt_stim_random.push(non_word[rand]);
+        non_word.splice(rand, 1);
+
+        var rand = randomInArray(unamb);
+        ldt_stim_random.push(unamb[rand]);
+        unamb.splice(rand, 1);
+
+        var rand = randomInArray(non_word);
+        ldt_stim_random.push(non_word[rand]);
+        non_word.splice(rand, 1);
+
+        var rand = randomInArray(amb);
+        ldt_stim_random.push(amb[rand]);
+        amb.splice(rand, 1);
+    }
+
+    splitSounds(ldt_stim_random);
+}
+
+function randomInArray(array) {
+    return random = Math.floor(Math.random() * array.length);
+}
+
+function splitSounds(array) {
+    test_stim_temp = [];
+
+    stimuliInTrial = 5;
+    numberOfTrials = 2;//array.length / stimuliInTrial;
 
     for (var i = 0; i < numberOfTrials; i++) {
-        pre_test_stim_temp[i] = array.splice(0, stimuliInTrial);
+        test_stim_temp[i] = array.splice(0, stimuliInTrial);
     }
 }
 
