@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="nl">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link href="../css/styles.css" rel="stylesheet">
+
+    </head>
+    <body>
+        <div class="container-parent">
+            <div class="width50">
+                <h1 class="center">Gegevens</h1>
+                <div>
+                    <label for="accesscode">Persoonlijke code</label>
+                    <input type="text" id="accesscode" name="accesscode">
+                </div>
+                <div>
+                    <label for="name">Leeftijd</label>
+                    <input type="text" id="age" name="age">
+                </div>
+                <div>
+                    <label for="gender">Gender</label>
+                    <select name="gender" id="gender">
+                        <option>Man</option>
+                        <option>Vrouw</option>
+                        <option>X</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="province_geb">Provincie Geboren</label>
+                    <select name="province_geb" id="province_geb">
+                        <option>West-Vlaanderen</option>
+                        <option>Oost-Vlaanderen</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="province_opg">Provincie Opgegroeid</label>
+                    <select name="province_opg" id="province_opg">
+                        <option>West-Vlaanderen</option>
+                        <option>Oost-Vlaanderen</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="studies">Huidige opleiding</label>
+                    <input type="text" id="studies" name="studies">
+                </div>
+                <div>
+                    <label for="studies_inst">Onderwijsinstelling</label>
+                    <select name="studies_inst" id="studies_inst">
+                        <option>Universiteit Gent</option>
+                        <option>Hogeschool Gent</option>
+                        <option>Arteveldehogeschool</option>
+                        <option>Odisee</option>
+                        <option>KU Leuven Campus Gent</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="hearing">Gehoor</label>
+                    <select name="hearing" id="hearing">
+                        <option>Geen gehoorverlies</option>
+                        <option>Gehoorverlies</option>
+                    </select>
+                </div>
+                <div>
+                    <button class="btn" onclick="toPage('../pages/informed_consent.html');">Previous</button>
+                    <button class="btn" onclick="checkForm();">Next</button>
+                </div>              
+            </div>
+        </div>
+        <script src="../js/functions.js"></script>
+    </body>
+</html>

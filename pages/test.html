@@ -332,27 +332,46 @@
         };
         timeline.push(end_screen);
 
+        // jsPsych.data.addProperties({ // add these variables to all rows of the datafile
+        //     browser_name: browser.name, browser_version: browser.version,
+        //     os_name: browser.osname, os_version: browser.osversion,
+        //     tablet: String(browser.tablet), mobile: String(browser.mobile),
+        //     // convert explicitly to string so that "undefined" (no response) does not lead to empty cells in the datafile
+        //     screen_resolution: screen.width + ' x ' + screen.height,
+        //     window_resolution: window.innerWidth + ' x ' + window.innerHeight, // this will be updated throughout the experiment
+        // });
+
+
         jsPsych.init({
             timeline: timeline,
             preload_audio: all_audio,
             show_preload_progress_bar: true,
             use_webaudio: false,
             override_safe_mode: true,
+            // on_interaction_data_update: function(data) {
+            //     // get the main trial data
+            //     var trial = jsPsych.currentTrial();
+            //     trial.data.screen_focus = data.event;
+            // },
+
             on_finish: function() {
                 jsPsych.data.displayData();
-                // var data = jsPsych.data.get();
-                // data = data.filter({trial_part: "probe"});
+                interaction_data = jsPsych.data.getInteractionData();
+                console.log(interaction_data.json());
+                var data = jsPsych.data.get();
+                data = data.filter({trial_part: "probe"});
                 // data = data.ignore('internal_node_id');
                 // data = data.ignore('probe');
                 // data = data.ignore('stimulus');
                 // data = data.ignore('trial_index');
                 // data = data.ignore('trial_part');
                 // data = data.ignore('trial_type');
-                // json = data.json();
-                // var userdata = localStorage.getItem('userdata');
+                json = data.json();
+                console.log(json);
+                var userdata = localStorage.getItem('userdata');
                 // console.log(userdata);
-                // sendData(userdata, 'userdata')
-                // sendData(json, 'testdata');
+                sendData(userdata, 'userdata')
+                sendData(json, 'testdata');
             }
         })
     </script>

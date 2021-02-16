@@ -170,7 +170,7 @@ function checkForm() {
         localStorage.setItem('userdata', userdata);
         localStorage.setItem('accesscode', accesscode);
         
-        toPage('/GilVerbeke/pages/audio_test.html');
+        toPage('audio_test.html');
     } else {
         alert('Gelieve alle velden in te vullen.');
     }
@@ -193,7 +193,7 @@ function checkAudioTest() {
 
 function sendData(data, endpoint) {
     //data = '{"code":"TEST", "age":"13", "gender":"Vrouw", "province":"Limburg", "studies":"MCT", "headset":"Razor"}';
-    var url = 'https://gilverbekepretest.azurewebsites.net/api/';
+    var url = 'https://gilverbeketest.azurewebsites.net/api/';
     url += endpoint;
 
     fetch(url, {
