@@ -103,29 +103,43 @@ function randomizeSoundsTrial1(array) {
 }
 
 function randomizeSoundsTrial2(array) {
+    vis = [];
+    bid = [];
+    wit = [];
+    kist = [];
+    lig = [];
+
     pct_stim_random = [];
-    var random = randomInArray(array);
-    var i = 0;
-
-    pct_stim_random.push(array[random]);
-    array.splice(random, 1);
-
+    var len = array.length;
     while (array.length > 0) {
-        var random = randomInArray(array);
-        var str = array[random].target;
+        rand = randomInArray(array)
+        var str = array[rand].target;
         var pos = str.indexOf('_');
         var str_current = str.slice(0, pos);
 
-        str = pct_stim_random[i].target;
-        pos = str.indexOf('_');
-        var str_previous = str.slice(0, pos);
-
-        if (str_current == str_previous) {
-        } else {
-            pct_stim_random.push(array[random]);
-            array.splice(random, 1);
-            i++;
+        if (str_current == 'vis') {
+            vis.push(array[rand]);
+            array.splice(rand, 1);
+        }else if (str_current == 'bid') {
+            bid.push(array[rand]);
+            array.splice(rand, 1);
+        }else if (str_current == 'wit') {
+            wit.push(array[rand]);
+            array.splice(rand, 1);
+        }else if (str_current == 'kist') {
+            kist.push(array[rand]);
+            array.splice(rand, 1);
+        }else if (str_current == 'lig') {
+            lig.push(array[rand]);
+            array.splice(rand, 1);
         }
+    }
+    for (var i = 0; i < 4; i++) {
+        pct_stim_random.push(vis[i]);
+        pct_stim_random.push(lig[i]);
+        pct_stim_random.push(wit[i]);
+        pct_stim_random.push(vis[i]);
+        pct_stim_random.push(kist[i]);
     }
 }
 
@@ -136,8 +150,8 @@ function randomInArray(array) {
 function splitSounds(array) {
     var test_stim_temp = [];
 
-    stimuliInTrial = 5;
-    numberOfTrials = 2;//array.length / stimuliInTrial;
+    stimuliInTrial = 1;
+    numberOfTrials = 1;//array.length / stimuliInTrial;
 
     for (var i = 0; i < numberOfTrials; i++) {
         test_stim_temp[i] = array.splice(0, stimuliInTrial);
