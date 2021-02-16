@@ -107,7 +107,7 @@
                 condition: jsPsych.timelineVariable('condition'), 
                 correct_response: jsPsych.timelineVariable('correct_response')
             },
-            post_trial_gap: 1000,
+            post_trial_gap: 500,
             on_finish: function(data) {
                 var acc = false;
                 if (data.correct_response == jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press)) {
@@ -127,7 +127,7 @@
                 return feedback_text;
             },
             choices: jsPsych.NO_KEYS,
-            trial_duration: 3000
+            trial_duration: 1000
         };
         var practice_trials = {
             timeline: [practice_fixation, practice_target, practice_lexical_decision_trial, practice_feedback],
@@ -230,16 +230,18 @@
                 "<p>Hoor je een 'i' zoals in <i>k<u>i</u>nd</i>, <i>beg<u>i</u>n</i>, <i>pr<u>i</u>ns</i> of <i>c<u>i</u>rkel</i>, druk dan op de <b>F-toets</b></p>"+
                 "<p>Hoor je een 'ie' zoals in <i>koff<u>ie</u></i>, <i>p<u>i</u>ano</i>, <i>d<u>ie</u>p</i> of <i>mach<u>i</u>ne</i>, druk dan op de <b>J-toets</b>.</p></div>",
                 '<p>Ter herinnering zal telkens herhaald worden welke toets met welke klank geassocieerd is.</p>'+
-                '<p>Merk op: niet alleen de <b>snelheid</b> maar ook de <b>nauwkeurigheid</b> van je antwoord is van belang.</p>'+
-                '<p>Het experiment duurt ongeveer XXX minuten, pauze meegerekend.</p>'+
+                '<p>Probeer telkens zo <b>snel</b> en zo <b>accuraat</b> mogelijk te antwoorden.</p>'+
+                '<p>Dit laatste onderdeel duurt ongeveer 10 minuten, pauze meegerekend.</p>'+
                 '<p>Veel succes!</p>'
+
             ],
             show_clickable_nav: true,
         };
+        timeline.push(instructions);
 
         var start_task = {
             type: 'html-button-response',
-            stimulus: "De oefenfase is nu afgerond. Klik op <b>'Start'</b> om aan het echte experiment te beginnen.", 
+            stimulus: "Klik op <b>'Start'</b> om aan het experiment te beginnen.", 
             choices: ['Start'],
             response_ends_trial: true,
             post_trial_gap: 1000
@@ -321,7 +323,6 @@
                 timeline.push(pause);
             }
         }
-
 
         var end_screen = {
             type: 'html-keyboard-response',
