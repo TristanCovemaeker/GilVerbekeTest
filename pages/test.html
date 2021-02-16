@@ -24,25 +24,39 @@
         // create list of all audio files for preloading
         var all_audio = [];
 
+        var randomTrial1 = Math.floor(Math.random() * 2);
+        var randomTrial2 = Math.floor(Math.random() * 2);
+        
+
         for (var i = 0; i < LDT_practice_trial.length; i++) {
-            all_audio.push(LDT_practice_trial[i].target_audio);//!
-        }
-        for (var i = 0; i < lex_dec_stim_v1.length; i++) {
-            all_audio.push(lex_dec_stim_v1[i].target_audio);//!
-        }
-        // for (var i = 0; i < lex_dec_stim_v2.length; i++) {
-        //     all_audio.push(lex_dec_stim_v2[i].target_audio);//!
-        // }
-        for (var i = 0; i < phon_cat_stim_v1.length; i++) {
-            all_audio.push(phon_cat_stim_v1[i].target_audio);//!
-        }
-        for (var i = 0; i < phon_cat_stim_v2.length; i++) {
-            all_audio.push(phon_cat_stim_v2[i].target_audio);//!
+            all_audio.push(LDT_practice_trial[i].target_audio);
         }
 
-        //randomizeSounds();
-        randomizeSoundsTrial1(lex_dec_stim_v1); 
+        if (randomTrial1 == 0) {
+            for (var i = 0; i < lex_dec_stim_v1.length; i++) {
+            all_audio.push(lex_dec_stim_v1[i].target_audio);
+            }
+            randomizeSoundsTrial1(lex_dec_stim_v1);
+        }else {
+            for (var i = 0; i < lex_dec_stim_v2.length; i++) {
+            all_audio.push(lex_dec_stim_v2[i].target_audio);
+            }
+            randomizeSoundsTrial1(lex_dec_stim_v2);
+        }
+        
+        if (randomTrial2 == 0) {
+            for (var i = 0; i < phon_cat_stim_v1.length; i++) {
+            all_audio.push(phon_cat_stim_v1[i].target_audio);
+            }
+            randomizeSoundsTrial2(phon_cat_stim_v1);
+        }else {
+            for (var i = 0; i < phon_cat_stim_v2.length; i++) {
+            all_audio.push(phon_cat_stim_v2[i].target_audio);
+            }
+            randomizeSoundsTrial2(phon_cat_stim_v2);
+        } 
 
+        //Practice
         var instructions = {
             type: 'instructions',
             pages: [
@@ -121,6 +135,108 @@
         };
         timeline.push(practice_trials);
 
+        //Test1
+        var start_task = {
+            type: 'html-button-response',
+            stimulus: "De oefenfase is nu afgerond. Klik op <b>'Start'</b> om aan het echte experiment te beginnen.", 
+            choices: ['Start'],
+            response_ends_trial: true,
+            post_trial_gap: 1000
+        };
+        timeline.push(start_task);
+
+        var fixation = {
+            type: 'html-keyboard-response',
+            stimulus: '<span style="font-size:40px;">+</span>',
+            choices: jsPsych.NO_KEYS,
+            trial_duration: 500,
+            data: {
+                trial_part: 'fixation'            
+            }
+        };
+
+        var target = {
+            type: 'audio-keyboard-response', //I think this is the place where the name of the newly created plugin should go
+            stimulus: jsPsych.timelineVariable('target_audio'),
+            prompt: '<span style="font-size:40px;">+</span>',
+            choices: jsPsych.NO_KEYS,
+            response_allowed_while_playing: false,
+            trial_ends_after_audio: true,
+            autoplay: true,
+            data: {
+                target: jsPsych.timelineVariable('target'),
+                probe: jsPsych.timelineVariable('probe'),
+                condition: jsPsych.timelineVariable('condition'),
+                trial_part: 'target'
+            }
+        }; 
+
+        var probe = {
+            type: 'html-keyboard-response',
+            stimulus: function() {
+                return '<span style="font-size:40px;">' + jsPsych.timelineVariable('probe', true) + '</span>';
+            },
+            choices: ['f', 'j'],
+            post_trial_gap: 500,
+            response_ends_trial: true,
+            data: {
+                target: jsPsych.timelineVariable('target'),
+                probe: jsPsych.timelineVariable('probe'),
+                condition: jsPsych.timelineVariable('condition'),
+                trial_part: 'probe'
+            },
+            on_finish : function(data) {
+                if(data.key_press == 70) {
+                    data.key_press_letter = 'f';
+                }else{
+                    data.key_press_letter = 'j';
+                }
+            }
+        };
+
+        var pause = {
+            type: 'html-keyboard-response',
+            stimulus: '<p>Je mag even pauze nemen!</p>'+
+                      '<p>Druk op <strong>spatie</strong> om verder te gaan</p>',
+            choices: ['space'],
+            post_trial_gap: 500,
+            response_ends_trial: true,
+            data: {
+                target: jsPsych.timelineVariable('target'),
+                probe: jsPsych.timelineVariable('probe'),
+                condition: jsPsych.timelineVariable('condition'),
+                trial_part: 'pause'
+            }
+        };
+
+        var split_test1 = splitSounds(ldt_stim_random);
+        for (var i = 0; i < numberOfTrials; i++) {
+            var test1 = {
+            timeline: [fixation, target, probe],
+            timeline_variables: split_test1[i],
+            };
+            timeline.push(test1);
+            if (i < numberOfTrials - 1){
+                timeline.push(pause);
+            }
+        }
+
+        //Test2
+        var instructions = {
+            type: 'instructions',
+            pages: [
+                "<p>Druk op <b>'next'</b> om door te gaan naar de instructies voor het tweede deel van het experiment.</p>",
+                '<div style="max-width:675px;"><p>In wat volgt zul je een reeks woorden horen met de ‘i’-klank. Het is de bedoeling dat je aangeeft welke ‘i’-klank je hoort, zonder daarbij rekening te houden of het woord al dan niet bestaat in het Nederlands.'+
+                "<p>Hoor je een 'i' zoals in <i>k<u>i</u>nd</i>, <i>beg<u>i</u>n</i>, <i>pr<u>i</u>ns</i> of <i>c<u>i</u>rkel</i>, druk dan op de <b>F-toets</b></p>"+
+                "<p>Hoor je een 'ie' zoals in <i>koff<u>ie</u></i>, <i>p<u>i</u>ano</i>, <i>d<u>ie</u>p</i> of <i>mach<u>i</u>ne</i>, druk dan op de <b>J-toets</b>.</p></div>",
+                '<p>Ter herinnering zal telkens herhaald worden welke toets met welke klank geassocieerd is.</p>'+
+                '<p>Merk op: niet alleen de <b>snelheid</b> maar ook de <b>nauwkeurigheid</b> van je antwoord is van belang.</p>'+
+                '<p>Het experiment duurt ongeveer XXX minuten, pauze meegerekend.</p>'+
+                '<p>Veel succes!</p>'
+            ],
+            show_clickable_nav: true,
+        };
+
         var start_task = {
             type: 'html-button-response',
             stimulus: "De oefenfase is nu afgerond. Klik op <b>'Start'</b> om aan het echte experiment te beginnen.", 
@@ -176,7 +292,6 @@
                 }else{
                     data.key_press_letter = 'ie';
                 }
-                data.code = localStorage.getItem('accesscode');
             }
         };
 
@@ -195,16 +310,18 @@
             }
         };
 
+        var split_test2 = splitSounds(pct_stim_random);
         for (var i = 0; i < numberOfTrials; i++) {
-            var test1 = {
+            var test2 = {
             timeline: [fixation, target, probe],
-            timeline_variables: test_stim_temp[i],
+            timeline_variables: split_test2[i],
             };
-            timeline.push(test1);
+            timeline.push(test2);
             if (i < numberOfTrials - 1){
                 timeline.push(pause);
             }
         }
+
 
         var end_screen = {
             type: 'html-keyboard-response',
