@@ -100,8 +100,33 @@ function randomizeSoundsTrial1(array) {
         ldt_stim_random.push(amb[rand]);
         amb.splice(rand, 1);
     }
+}
 
-    splitSounds(ldt_stim_random);
+function randomizeSoundsTrial2(array) {
+    pct_stim_random = [];
+    var random = randomInArray(array);
+    var i = 0;
+
+    pct_stim_random.push(array[random]);
+    array.splice(random, 1);
+
+    while (array.length > 0) {
+        var random = randomInArray(array);
+        var str = array[random].target;
+        var pos = str.indexOf('_');
+        var str_current = str.slice(0, pos);
+
+        str = pct_stim_random[i].target;
+        pos = str.indexOf('_');
+        var str_previous = str.slice(0, pos);
+
+        if (str_current == str_previous) {
+        } else {
+            pct_stim_random.push(array[random]);
+            array.splice(random, 1);
+            i++;
+        }
+    }
 }
 
 function randomInArray(array) {
@@ -109,7 +134,7 @@ function randomInArray(array) {
 }
 
 function splitSounds(array) {
-    test_stim_temp = [];
+    var test_stim_temp = [];
 
     stimuliInTrial = 5;
     numberOfTrials = 2;//array.length / stimuliInTrial;
@@ -117,6 +142,7 @@ function splitSounds(array) {
     for (var i = 0; i < numberOfTrials; i++) {
         test_stim_temp[i] = array.splice(0, stimuliInTrial);
     }
+    return test_stim_temp;
 }
 
 function checkForm() {
