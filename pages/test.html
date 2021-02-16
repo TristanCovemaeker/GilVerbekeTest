@@ -9,8 +9,11 @@
         <script src="../jspsych/plugins/jspsych-html-keyboard-response.js"></script>
         <script src="../jspsych/plugins/jspsych-html-button-response.js"></script>
         <script src="../jspsych/plugins/jspsych-instructions.js"></script>
-        <script src="../js/MAP_Pre_test_Stimuli.js"></script>
-        <script src="../js/MAP_Pre_test_Stimuli_Short.js"></script>
+        <script src="../js/Practice_Trials.js"></script>
+        <script src="../js/MAP_LDT_Stimuli_v1.js"></script>
+        <script src="../js/MAP_LDT_Stimuli_v2.js"></script>
+        <script src="../js/MAP_PCT_Stimuli_v1.js"></script>
+        <script src="../js/MAP_PCT_Stimuli_v2.js"></script>
         <script src="../js/functions.js"></script>
         <link href="../jspsych/css/jspsych.css" rel="stylesheet">
     </head>
@@ -21,35 +24,110 @@
         // create list of all audio files for preloading
         var all_audio = [];
 
-        for (var i = 0; i < pre_test_stim.length; i++) {
-            all_audio.push(pre_test_stim[i].target_audio);
+        for (var i = 0; i < LDT_practice_trial.length; i++) {
+            all_audio.push(LDT_practice_trial[i].target_audio);//!
+        }
+        for (var i = 0; i < lex_dec_stim_v1.length; i++) {
+            all_audio.push(lex_dec_stim_v1[i].target_audio);//!
+        }
+        // for (var i = 0; i < lex_dec_stim_v2.length; i++) {
+        //     all_audio.push(lex_dec_stim_v2[i].target_audio);//!
+        // }
+        for (var i = 0; i < phon_cat_stim_v1.length; i++) {
+            all_audio.push(phon_cat_stim_v1[i].target_audio);//!
+        }
+        for (var i = 0; i < phon_cat_stim_v2.length; i++) {
+            all_audio.push(phon_cat_stim_v2[i].target_audio);//!
         }
 
-        randomizeSounds();      
+        //randomizeSounds();
+        randomizeSoundsTrial1(lex_dec_stim_v1); 
 
         var instructions = {
             type: 'instructions',
             pages: [
                 "<p>Druk op <b>'next'</b> om door te gaan naar de instructies.</p>",
-                '<div style="max-width:675px;"><p>In wat volgt zul je een reeks woorden horen met de ‘i’-klank. Het is de bedoeling dat je aangeeft welke ‘i’-klank je hoort, zonder daarbij rekening te houden of het woord al dan niet bestaat in het Nederlands.'+
-                "<p>Hoor je een 'i' zoals in <i>k<u>i</u>nd</i>, <i>beg<u>i</u>n</i>, <i>pr<u>i</u>ns</i> of <i>c<u>i</u>rkel</i>, druk dan op de <b>F-toets</b></p>"+
-                "<p>Hoor je een 'ie' zoals in <i>koff<u>ie</u></i>, <i>p<u>i</u>ano</i>, <i>d<u>ie</u>p</i> of <i>mach<u>i</u>ne</i>, druk dan op de <b>J-toets</b>.</p></div>",
-                '<p>Ter herinnering zal telkens herhaald worden welke toets met welke klank geassocieerd is.</p>'+
+                '<div style="max-width:675px;"><p>In het eerste deel van het experiment zul je een reeks zinnetjes horen waarbij telkens één woord verschilt. Het is de bedoeling dat je aangeeft of dat woord als dan niet bestaat in het Nederlands.'+
+                "<p>Hoor je bijvoorbeeld het woord <b>appel</b> zoals in <i>Ze heeft <u>appel</u> gezegd.</i>, druk dan op de <b>J-toets</b></p>"+
+                "<p>Hoor je bijvoorbeeld het niet-woord <b>krasp</b> zoals in <i>Ze heeft <u>krasp</u> gezegd.</i>, druk dan op de <b>F-toets</b></p>",
+                '<p>Ter herinnering zal telkens herhaald worden welke toets met welk soort woord geassocieerd is.</p>'+
                 '<p>Merk op: niet alleen de <b>snelheid</b> maar ook de <b>nauwkeurigheid</b> van je antwoord is van belang.</p>'+
-                '<p>Het experiment duurt ongeveer 20 minuten, pauze meegerekend.</p>'+
-                '<p>Veel succes!</p>'
+                '<p>Dit eerste deel duurt ongeveer XX minuten, pauze meegerekend.</p>',
+                '<p>Vooraleer het experiment te starten, kun je een aantal oefenvoorbeelden maken. In plaats van een gesproken zinnetje zal een geschreven zinnetje op het scherm verschijnen.</p>'+
+                '<p>Het is de bedoeling dat je aangeeft of het woord een bestaand of niet-bestaand woord is door op de corresponderende toets te drukken.</p>'+
+                '<p>Na de oefenfase start het experiment met de gesproken zinnetjes.</p>',
             ],
             show_clickable_nav: true,
         };
         timeline.push(instructions);
 
+        var practice_fixation = {
+            type: 'html-keyboard-response',
+            stimulus: '<span style="font-size:40px;">+</span>',
+            choices: jsPsych.NO_KEYS,
+            trial_duration: 1000
+        };
+        var practice_target = {
+            type: 'audio-keyboard-response', //I think this is the place where the name of the newly created plugin should go
+            stimulus: jsPsych.timelineVariable('target_audio'),
+            prompt: '<span style="font-size:40px;">+</span>',
+            choices: jsPsych.NO_KEYS,
+            response_allowed_while_playing: false,
+            trial_ends_after_audio: true,
+            autoplay: true,
+            data: {
+                target: jsPsych.timelineVariable('target'),
+                probe: jsPsych.timelineVariable('probe'),
+                condition: jsPsych.timelineVariable('condition'),
+                trial_part: 'target'
+            }
+        }; 
+        var practice_lexical_decision_trial = {
+            type: 'html-keyboard-response',
+            stimulus: function() {
+                return '<span style="font-size:40px;">' + jsPsych.timelineVariable('probe', true) + '</span>';
+            },
+            choices: ['f','j'],
+            stimulus_duration: 3000,	
+            data: {
+                condition: jsPsych.timelineVariable('condition'), 
+                correct_response: jsPsych.timelineVariable('correct_response')
+            },
+            post_trial_gap: 1000,
+            on_finish: function(data) {
+                var acc = false;
+                if (data.correct_response == jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press)) {
+                    acc = true;
+                }
+                data.accuracy = acc;
+            }
+        };
+        var practice_feedback = {
+            type: 'html-keyboard-response',
+            stimulus: function() {
+                var feedback_text = '<span style="font-size:30px;color:red;">Incorrect</span>';
+                var last_trial_accuracy = jsPsych.data.getLastTrialData().values()[0].accuracy; 
+                if (last_trial_accuracy == true) {
+                    feedback_text = '<span style="font-size:30px;color:green;">Correct!</span>'
+                }
+                return feedback_text;
+            },
+            choices: jsPsych.NO_KEYS,
+            trial_duration: 3000
+        };
+        var practice_trials = {
+            timeline: [practice_fixation, practice_target, practice_lexical_decision_trial, practice_feedback],
+            timeline_variables: LDT_practice_trial,
+        };
+        timeline.push(practice_trials);
+
         var start_task = {
             type: 'html-button-response',
-            stimulus: "Klik op <b>'Start'</b> om aan het experiment te beginnen.", 
+            stimulus: "De oefenfase is nu afgerond. Klik op <b>'Start'</b> om aan het echte experiment te beginnen.", 
             choices: ['Start'],
             response_ends_trial: true,
             post_trial_gap: 1000
-        }
+        };
         timeline.push(start_task);
 
         var fixation = {
@@ -118,11 +196,11 @@
         };
 
         for (var i = 0; i < numberOfTrials; i++) {
-            var main_procedure = {
+            var test1 = {
             timeline: [fixation, target, probe],
-            timeline_variables: pre_test_stim_temp[i],
+            timeline_variables: test_stim_temp[i],
             };
-            timeline.push(main_procedure);
+            timeline.push(test1);
             if (i < numberOfTrials - 1){
                 timeline.push(pause);
             }
@@ -145,19 +223,19 @@
             override_safe_mode: true,
             on_finish: function() {
                 jsPsych.data.displayData();
-                var data = jsPsych.data.get();
-                data = data.filter({trial_part: "probe"});
-                data = data.ignore('internal_node_id');
-                data = data.ignore('probe');
-                data = data.ignore('stimulus');
-                data = data.ignore('trial_index');
-                data = data.ignore('trial_part');
-                data = data.ignore('trial_type');
-                json = data.json();
-                var userdata = localStorage.getItem('userdata');
-                console.log(userdata);
-                sendData(userdata, 'userdata')
-                sendData(json, 'testdata');
+                // var data = jsPsych.data.get();
+                // data = data.filter({trial_part: "probe"});
+                // data = data.ignore('internal_node_id');
+                // data = data.ignore('probe');
+                // data = data.ignore('stimulus');
+                // data = data.ignore('trial_index');
+                // data = data.ignore('trial_part');
+                // data = data.ignore('trial_type');
+                // json = data.json();
+                // var userdata = localStorage.getItem('userdata');
+                // console.log(userdata);
+                // sendData(userdata, 'userdata')
+                // sendData(json, 'testdata');
             }
         })
     </script>
