@@ -24,9 +24,15 @@
         // create list of all audio files for preloading
         var all_audio = [];
 
-        var randomTrial1 = Math.floor(Math.random() * 2);
-        var randomTrial2 = Math.floor(Math.random() * 2);
-        
+        taak1 = localStorage.getItem('taak1');
+        taak2 = localStorage.getItem('taak2');
+        if (taak1 != null && taak2 != null) {
+            var randomTrial1 = taak1;
+            var randomTrial2 = taak2;
+        }else {
+            var randomTrial1 = Math.floor(Math.random() * 2);
+            var randomTrial2 = Math.floor(Math.random() * 2);
+        }
 
         for (var i = 0; i < LDT_practice_trial.length; i++) {
             all_audio.push(LDT_practice_trial[i].target_audio);
@@ -220,6 +226,7 @@
                 }else{
                     data.key_press_letter = 'j';
                 }
+
                 data.code = localStorage.getItem('accesscode');
             }
         };
@@ -425,7 +432,9 @@
                         browserdata[i].code = localStorage.getItem('accesscode');
                     }
                     browserstring = JSON.stringify(browserdata);
-                    
+
+                    console.log(json);
+
                     sendData(userdata, 'userdata')
                     sendData(json, 'testdata');
                     sendData(browserstring, 'browserdata');
