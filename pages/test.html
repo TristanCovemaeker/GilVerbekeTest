@@ -71,18 +71,18 @@
 
         //Practice
         var instructions = {
-            type: 'instructions',
+            type: 'instructions',       
             pages: [
                 "<p>Druk op <b>'next'</b> om door te gaan naar de instructies.</p>",
-                '<div style="max-width:675px;"><p>In het eerste deel van het experiment zul je een reeks zinnetjes horen waarbij telkens één woord verschilt. Het is de bedoeling dat je aangeeft of dat woord als dan niet bestaat in het Nederlands.'+
-                "<p>Hoor je bijvoorbeeld het woord <b>appel</b> zoals in <i>Ze heeft <u>appel</u> gezegd.</i>, druk dan op de <b>J-toets</b></p>"+
-                "<p>Hoor je bijvoorbeeld het niet-woord <b>krasp</b> zoals in <i>Ze heeft <u>krasp</u> gezegd.</i>, druk dan op de <b>F-toets</b></p>",
-                '<p>Ter herinnering zal telkens herhaald worden welke toets met welk soort woord geassocieerd is.</p>'+
-                '<p>Merk op: niet alleen de <b>snelheid</b> maar ook de <b>nauwkeurigheid</b> van je antwoord is van belang.</p>'+
-                '<p>Dit eerste deel duurt ongeveer XX minuten, pauze meegerekend.</p>',
-                '<p>Vooraleer het experiment te starten, kun je een aantal oefenvoorbeelden maken. In plaats van een gesproken zinnetje zal een geschreven zinnetje op het scherm verschijnen.</p>'+
-                '<p>Het is de bedoeling dat je aangeeft of het woord een bestaand of niet-bestaand woord is door op de corresponderende toets te drukken.</p>'+
-                '<p>Na de oefenfase start het experiment met de gesproken zinnetjes.</p>',
+                '<div style="max-width:710px;"><p>In het eerste deel van het experiment zal je een reeks zinnetjes horen met telkens een ander centraal woord. Het is de bedoeling dat je aangeeft of dat centrale woord een bestaand woord of een nonwoord –dat lijkt op een Nederlands woord, maar niet echt bestaat– is in het Nederlands door op de corresponderende toets te drukken.</p>'+
+                '<p>Hoor je bijvoorbeeld het woord <b>appel</b> zoals in <i>Ze heeft <u>appel</u> gezegd</i>, druk dan op de <b>J-toets</b> (Woord).</p>'+
+                "<p>Hoor je bijvoorbeeld het nonwoord <b>krasp</b> zoals in <i>Ze heeft <u>krasp</u> gezegd</i>, druk dan op de <b>F-toets</b> (Nonwoord).</p>",
+                '<p>Ter herinnering zal herhaald worden welke toets met welk soort woord geassocieerd is.</p>'+
+                '<p>Antwoord telkens zo <b>snel</b> en zo <b>nauwkeurig</b> mogelijk.</p>'+
+                '<p>Dit eerste deel duurt ongeveer 15 minuten, pauze meegerekend.</p></div>',
+                '<div style="max-width:825px;"><p>In wat volgt zal je eerst drie <b>oefenvoorbeelden</b> krijgen.</p>'+
+                '<p>Geef aan of het centrale woord een bestaand woord of een nonwoord is in het Nederlands.</p>'+
+                '<p>Na de oefenfase start het echte experiment, waar je niet langer feedback zal krijgen.</p></div>',
             ],
             show_clickable_nav: true,
         };
@@ -95,7 +95,7 @@
             trial_duration: 1000
         };
         var practice_target = {
-            type: 'audio-keyboard-response', //I think this is the place where the name of the newly created plugin should go
+            type: 'audio-keyboard-response', 
             stimulus: jsPsych.timelineVariable('target_audio'),
             prompt: '<span style="font-size:40px;">+</span>',
             choices: jsPsych.NO_KEYS,
@@ -275,11 +275,11 @@
             type: 'instructions',
             pages: [
                 "<p>Druk op <b>'next'</b> om door te gaan naar de instructies voor het tweede deel van het experiment.</p>",
-                '<div style="max-width:675px;"><p>In wat volgt zul je een reeks woorden horen met de ‘i’-klank. Het is de bedoeling dat je aangeeft welke ‘i’-klank je hoort, zonder daarbij rekening te houden of het woord al dan niet bestaat in het Nederlands.'+
+                '<div style="max-width:675px;"><p>In wat volgt zal je een reeks woorden horen met de ‘i’-klank. Het is de bedoeling dat je aangeeft welke ‘i’-klank je hoort.'+
                 "<p>Hoor je een 'i' zoals in <i>k<u>i</u>nd</i>, <i>beg<u>i</u>n</i>, <i>pr<u>i</u>ns</i> of <i>c<u>i</u>rkel</i>, druk dan op de <b>F-toets</b></p>"+
-                "<p>Hoor je een 'ie' zoals in <i>koff<u>ie</u></i>, <i>p<u>i</u>ano</i>, <i>d<u>ie</u>p</i> of <i>mach<u>i</u>ne</i>, druk dan op de <b>J-toets</b>.</p></div>",
+                "<p>Hoor je een 'ie' zoals in <i>mach<u>i</u>ne</i>, <i>d<u>ie</u>p</i>, <i>p<u>i</u>ano</i> of <i>koff<u>ie</u></i>, druk dan op de <b>J-toets</b>.</p></div>",
                 '<p>Ter herinnering zal telkens herhaald worden welke toets met welke klank geassocieerd is.</p>'+
-                '<p>Probeer telkens zo <b>snel</b> en zo <b>accuraat</b> mogelijk te antwoorden.</p>'+
+                '<p>Antwoord telkens zo <b>snel</b> en zo <b>accuraat</b> mogelijk.</p>'+
                 '<p>Dit laatste onderdeel duurt ongeveer 10 minuten, pauze meegerekend.</p>'+
                 '<p>Veel succes!</p>'
 
