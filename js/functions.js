@@ -150,8 +150,8 @@ function randomInArray(array) {
 function splitSounds(array) {
     var test_stim_temp = [];
 
-    stimuliInTrial = 1;
-    numberOfTrials = 1;//array.length / stimuliInTrial;
+    stimuliInTrial = 40;
+    numberOfTrials = array.length / stimuliInTrial;
 
     for (var i = 0; i < numberOfTrials; i++) {
         test_stim_temp[i] = array.splice(0, stimuliInTrial);
@@ -178,12 +178,12 @@ function checkForm() {
 
 function checkAudioTest() {
     var inputs = document.getElementsByTagName('input');
+    getData('trialversion');
 
     if (inputs[0].value != '') {
         var userdata = localStorage.getItem('userdata');
         userdata += ', "headset":"' + inputs[0].value + '"';
         localStorage.setItem('userdata', userdata);
-        //sendData(userdata, 'userdata');
 
         toPage('test.html');
     } else {
@@ -205,4 +205,22 @@ function sendData(data, endpoint) {
     }).then(res => res.json())
         .then(response => console.log('Succes:', JSON.stringify(response)))
         .catch(error => console.error('Error', error));
+}
+
+function getData(endpoint) {
+    var url = 'https://gilverbeketest.azurewebsites.net/api/';
+    url += endpoint;
+
+    fetch(url)
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (myJson) {
+        console.log(myJson);
+        localStorage.setItem('taak1', myJson.taak1);
+        localStorage.setItem('taak2', myJson.taak2);
+    })
+    .catch(function (error) {
+        console.log("Error: " + error);
+    });
 }
