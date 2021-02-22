@@ -181,7 +181,7 @@ function checkAudioTest() {
 
     if (inputs[0].value != '') {
         var userdata = localStorage.getItem('userdata');
-        userdata += ', "headset":"' + inputs[0].value + '"}';
+        userdata += ', "headset":"' + inputs[0].value + '"';
         localStorage.setItem('userdata', userdata);
         //sendData(userdata, 'userdata');
 
