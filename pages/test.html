@@ -32,12 +32,16 @@
             all_audio.push(LDT_practice_trial[i].target_audio);
         }
 
+        var userdata = localStorage.getItem('userdata');
+
         if (randomTrial1 == 0) {
+            userdata += ', "taak1":"LDT1"';
             for (var i = 0; i < lex_dec_stim_v1.length; i++) {
             all_audio.push(lex_dec_stim_v1[i].target_audio);
             }
             randomizeSoundsTrial1(lex_dec_stim_v1);
         }else {
+            userdata += ', "taak1":"LDT2"';
             for (var i = 0; i < lex_dec_stim_v2.length; i++) {
             all_audio.push(lex_dec_stim_v2[i].target_audio);
             }
@@ -45,16 +49,19 @@
         }
         
         if (randomTrial2 == 0) {
+            userdata += ', "taak2":"PCT1"}';
             for (var i = 0; i < phon_cat_stim_v1.length; i++) {
             all_audio.push(phon_cat_stim_v1[i].target_audio);
             }
             randomizeSoundsTrial2(phon_cat_stim_v1);
         }else {
+            userdata += ', "taak2":"PCT2"}';
             for (var i = 0; i < phon_cat_stim_v2.length; i++) {
             all_audio.push(phon_cat_stim_v2[i].target_audio);
             }
             randomizeSoundsTrial2(phon_cat_stim_v2);
-        } 
+        }
+        console.log(userdata);
 
         //Practice
         var instructions = {
@@ -102,7 +109,7 @@
                 return '<span style="font-size:40px;">' + jsPsych.timelineVariable('probe', true) + '</span>';
             },
             choices: ['f','j'],
-            stimulus_duration: 3000,	
+            trial_duration: 3000,	
             data: {
                 condition: jsPsych.timelineVariable('condition'), 
                 correct_response: jsPsych.timelineVariable('correct_response')
@@ -116,6 +123,27 @@
                 data.accuracy = acc;
             }
         };
+
+        var faster = {
+            type: 'html-keyboard-response',
+            stimulus: '<span>Je antwoord werd niet geregistreed. Gelieve sneller te antwoorden.</span>',
+            choices: jsPsych.NO_KEYS,
+            trial_duration: 1000,
+            post_trial_gap: 500
+        };
+
+        var if_node = {
+            timeline: [faster],
+            conditional_function: function() {
+                let data = jsPsych.data.get().last(1).values()[0];
+                if (data.rt == null) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        };
+
         var practice_feedback = {
             type: 'html-keyboard-response',
             stimulus: function() {
@@ -130,7 +158,7 @@
             trial_duration: 1000
         };
         var practice_trials = {
-            timeline: [practice_fixation, practice_target, practice_lexical_decision_trial, practice_feedback],
+            timeline: [practice_fixation, practice_target, practice_lexical_decision_trial, if_node, practice_feedback],
             timeline_variables: LDT_practice_trial,
         };
         timeline.push(practice_trials);
@@ -177,6 +205,7 @@
                 return '<span style="font-size:40px;">' + jsPsych.timelineVariable('probe', true) + '</span>';
             },
             choices: ['f', 'j'],
+            trial_duration: 3000,
             post_trial_gap: 500,
             response_ends_trial: true,
             data: {
@@ -190,6 +219,18 @@
                     data.key_press_letter = 'f';
                 }else{
                     data.key_press_letter = 'j';
+                }
+            }
+        };
+
+        var if_node = {
+            timeline: [faster],
+            conditional_function: function() {
+                let data = jsPsych.data.get().last(1).values()[0];
+                if (data.rt == null) {
+                    return true;
+                } else {
+                    return false;
                 }
             }
         };
@@ -212,7 +253,7 @@
         var split_test1 = splitSounds(ldt_stim_random);
         for (var i = 0; i < numberOfTrials; i++) {
             var test1 = {
-            timeline: [fixation, target, probe],
+            timeline: [fixation, target, probe, if_node],
             timeline_variables: split_test1[i],
             };
             timeline.push(test1);
@@ -280,6 +321,7 @@
                 return '<span style="font-size:40px;">' + jsPsych.timelineVariable('probe', true) + '</span>';
             },
             choices: ['f', 'j'],
+            trial_duration: 3000,
             post_trial_gap: 500,
             response_ends_trial: true,
             data: {
@@ -293,6 +335,18 @@
                     data.key_press_letter = 'i';
                 }else{
                     data.key_press_letter = 'ie';
+                }
+            }
+        };
+
+        var if_node = {
+            timeline: [faster],
+            conditional_function: function() {
+                let data = jsPsych.data.get().last(1).values()[0];
+                if (data.rt == null) {
+                    return true;
+                } else {
+                    return false;
                 }
             }
         };
@@ -315,7 +369,7 @@
         var split_test2 = splitSounds(pct_stim_random);
         for (var i = 0; i < numberOfTrials; i++) {
             var test2 = {
-            timeline: [fixation, target, probe],
+            timeline: [fixation, target, probe, if_node],
             timeline_variables: split_test2[i],
             };
             timeline.push(test2);
@@ -369,8 +423,8 @@
                 // data = data.ignore('trial_type');
                 json = data.json();
                 console.log(json);
-                var userdata = localStorage.getItem('userdata');
-                // console.log(userdata);
+                //var userdata = localStorage.getItem('userdata');
+                console.log(userdata);
                 sendData(userdata, 'userdata')
                 sendData(json, 'testdata');
             }
