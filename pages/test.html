@@ -67,7 +67,6 @@
             }
             randomizeSoundsTrial2(phon_cat_stim_v2);
         }
-        console.log(userdata);
 
         //Practice
         var instructions = {
@@ -385,15 +384,15 @@
                 trial_part: 'pause'
             }
         };
-
-        var split_test2 = splitSounds(pct_stim_random);
-        for (iterator = 0; iterator < numberOfTrials; iterator++) {
+        //console.log(pct_stim_random);
+        var split_test2 = pct_stim_random;//splitSounds(pct_stim_random);
+        for (iterator = 0; iterator < 8; iterator++) {
             var test2 = {
             timeline: [fixation, target, probe, if_node],
-            timeline_variables: split_test2[i],
+            timeline_variables: split_test2,
             };
             timeline.push(test2);
-            if (i < numberOfTrials - 1){
+            if (iterator < 8 - 1){
                 timeline.push(pause);
             }
         }
