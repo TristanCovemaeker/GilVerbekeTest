@@ -58,7 +58,7 @@ function randomizeSoundsTrial1(array) {
             filler.push(array[i]);
         } else if (array[i].condition == 'non-word') {
             non_word.push(array[i]);
-        }else if (array[i].condition == 'unamb_crit_word_ie' || array[i].condition == 'unamb_crit_word_i') {
+        } else if (array[i].condition == 'unamb_crit_word_ie' || array[i].condition == 'unamb_crit_word_i') {
             unamb.push(array[i]);
         } else if (array[i].condition == 'amb_crit_word_i' || array[i].condition == 'amb_crit_word_ie') {
             amb.push(array[i]);
