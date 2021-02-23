@@ -226,6 +226,11 @@
                 }else{
                     data.key_press_letter = 'j';
                 }
+                if(randomTrial1 == 0) {
+                    data.trial_version = 'LDT1';
+                }else {
+                    data.trial_version = 'LDT2';
+                }
 
                 data.code = localStorage.getItem('accesscode');
             }
@@ -322,7 +327,7 @@
                 trial_part: 'target'
             }
         }; 
-
+        var iterator = 0;
         var probe = {
             type: 'html-keyboard-response',
             stimulus: function() {
@@ -344,7 +349,13 @@
                 }else{
                     data.key_press_letter = 'ie';
                 }
+                if(randomTrial2 == 0) {
+                    data.trial_version = 'PCT1';
+                }else {
+                    data.trial_version = 'PCT2';
+                }
                 data.code = localStorage.getItem('accesscode');
+                data.iteration = iterator;
             }
         };
 
@@ -376,7 +387,7 @@
         };
 
         var split_test2 = splitSounds(pct_stim_random);
-        for (var i = 0; i < numberOfTrials; i++) {
+        for (iterator = 0; iterator < numberOfTrials; iterator++) {
             var test2 = {
             timeline: [fixation, target, probe, if_node],
             timeline_variables: split_test2[i],
