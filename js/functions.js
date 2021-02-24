@@ -71,17 +71,29 @@ function randomizeSoundsTrial1(array) {
         ldt_stim_random.push(non_word[rand]);
         non_word.splice(rand, 1);
 
-        var rand = randomInArray(filler);
-        ldt_stim_random.push(filler[rand]);
-        filler.splice(rand, 1);
+        if (filler.length > 0) {
+            var rand = randomInArray(filler);
+            ldt_stim_random.push(filler[rand]);
+            filler.splice(rand, 1);
+        }else {
+            var rand = randomInArray(non_word);
+            ldt_stim_random.push(non_word[rand]);
+            non_word.splice(rand, 1);
+        }
 
         var rand = randomInArray(non_word);
         ldt_stim_random.push(non_word[rand]);
         non_word.splice(rand, 1);
 
-        var rand = randomInArray(filler);
-        ldt_stim_random.push(filler[rand]);
-        filler.splice(rand, 1);
+        if (filler.length > 0) {
+            var rand = randomInArray(filler);
+            ldt_stim_random.push(filler[rand]);
+            filler.splice(rand, 1);
+        }else {
+            var rand = randomInArray(non_word);
+            ldt_stim_random.push(non_word[rand]);
+            non_word.splice(rand, 1);
+        }
 
         var rand = Math.floor(Math.random() * 2);
         if (rand == 0) {
