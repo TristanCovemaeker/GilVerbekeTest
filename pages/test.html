@@ -85,7 +85,7 @@
             ],
             show_clickable_nav: true,
         };
-        timeline.push(instructions);
+        //timeline.push(instructions);
 
         var practice_fixation = {
             type: 'html-keyboard-response',
@@ -166,7 +166,7 @@
             timeline: [practice_fixation, practice_target, practice_lexical_decision_trial, if_node, practice_feedback],
             timeline_variables: LDT_practice_trial,
         };
-        timeline.push(practice_trials);
+        //timeline.push(practice_trials);
 
         //Test1
         var start_task = {
@@ -176,7 +176,7 @@
             response_ends_trial: true,
             post_trial_gap: 1000
         };
-        timeline.push(start_task);
+        //timeline.push(start_task);
 
         var fixation = {
             type: 'html-keyboard-response',
@@ -262,17 +262,17 @@
             }
         };
 
-        var split_test1 = splitSounds(ldt_stim_random);
-        for (var i = 0; i < numberOfTrials; i++) {
-            var test1 = {
-            timeline: [fixation, target, probe, if_node],
-            timeline_variables: split_test1[i],
-            };
-            timeline.push(test1);
-            if (i < numberOfTrials - 1){
-                timeline.push(pause);
-            }
-        };
+        // var split_test1 = splitSounds(ldt_stim_random);
+        // for (var i = 0; i < numberOfTrials; i++) {
+        //     var test1 = {
+        //     timeline: [fixation, target, probe, if_node],
+        //     timeline_variables: split_test1[i],
+        //     };
+        //     timeline.push(test1);
+        //     if (i < numberOfTrials - 1){
+        //         timeline.push(pause);
+        //     }
+        // };
 
         //Test2
         var instructions = {
@@ -325,7 +325,11 @@
                 condition: jsPsych.timelineVariable('condition'),
                 trial_part: 'target'
             }
-        }; 
+        };
+
+        var iteration = 1;
+        var counter = 1;
+
         var probe = {
             type: 'html-keyboard-response',
             stimulus: function() {
@@ -353,7 +357,14 @@
                     data.trial_version = 'PCT2';
                 }
                 data.code = localStorage.getItem('accesscode');
-                data.iteration = Math.ceil(data.trial_index / 3 / 40);
+                data.iteration = iteration;
+                console.log(iteration);
+                console.log(counter);
+                counter++;
+                if(counter == 21) {
+                    iteration++;
+                    counter = 1;
+                }
             }
         };
 
@@ -393,6 +404,7 @@
             timeline.push(test2);
             if (i < 8 - 1){
                 timeline.push(pause);
+                //iteration++;
             }
         }
 
