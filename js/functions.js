@@ -147,7 +147,6 @@ function randomizeSoundsTrial2(array) {
         pct_stim_random.push(vis[i]);
         pct_stim_random.push(kist[i]);
     }
-    console.log(pct_stim_random);
 }
 
 function randomInArray(array) {
@@ -185,7 +184,6 @@ function checkForm() {
 
 function checkAudioTest() {
     var inputs = document.getElementsByTagName('input');
-    getData('trialversion');
 
     if (inputs[0].value != '') {
         var userdata = localStorage.getItem('userdata');
