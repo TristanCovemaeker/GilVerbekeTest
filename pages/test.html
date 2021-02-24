@@ -204,6 +204,8 @@
             }
         }; 
 
+        var testcounter = 1;
+
         var probe = {
             type: 'html-keyboard-response',
             stimulus: function() {
@@ -230,7 +232,8 @@
                 }else {
                     data.trial_version = 'LDT2';
                 }
-
+                console.log(testcounter);
+                testcounter++;
                 data.code = localStorage.getItem('accesscode');
             }
         };
