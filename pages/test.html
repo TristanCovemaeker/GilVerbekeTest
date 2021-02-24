@@ -85,7 +85,7 @@
             ],
             show_clickable_nav: true,
         };
-        timeline.push(instructions);
+        //timeline.push(instructions);
 
         var practice_fixation = {
             type: 'html-keyboard-response',
@@ -166,7 +166,7 @@
             timeline: [practice_fixation, practice_target, practice_lexical_decision_trial, if_node, practice_feedback],
             timeline_variables: LDT_practice_trial,
         };
-        timeline.push(practice_trials);
+        //timeline.push(practice_trials);
 
         //Test1
         var start_task = {
@@ -262,17 +262,17 @@
             }
         };
 
-        var split_test1 = splitSounds(ldt_stim_random);
-        for (var i = 0; i < numberOfTrials; i++) {
-            var test1 = {
-            timeline: [fixation, target, probe, if_node],
-            timeline_variables: split_test1[i],
-            };
-            timeline.push(test1);
-            if (i < numberOfTrials - 1){
-                timeline.push(pause);
-            }
-        };
+        // var split_test1 = splitSounds(ldt_stim_random);
+        // for (var i = 0; i < numberOfTrials; i++) {
+        //     var test1 = {
+        //     timeline: [fixation, target, probe, if_node],
+        //     timeline_variables: split_test1[i],
+        //     };
+        //     timeline.push(test1);
+        //     if (i < numberOfTrials - 1){
+        //         timeline.push(pause);
+        //     }
+        // };
 
         //Test2
         var instructions = {
