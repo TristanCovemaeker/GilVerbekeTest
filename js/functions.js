@@ -147,6 +147,7 @@ function randomizeSoundsTrial2(array) {
         pct_stim_random.push(vis[i]);
         pct_stim_random.push(kist[i]);
     }
+    console.log(pct_stim_random);
 }
 
 function randomInArray(array) {
