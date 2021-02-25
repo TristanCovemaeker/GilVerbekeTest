@@ -67,9 +67,38 @@ function randomizeSoundsTrial1(array) {
 
     ldt_stim_random = [];
     for (var i = 0; i < 40; i++) {
-        var rand = randomInArray(non_word);
-        ldt_stim_random.push(non_word[rand]);
-        non_word.splice(rand, 1);
+        if (non_word.length > 0) {
+            var rand = randomInArray(non_word);
+            ldt_stim_random.push(non_word[rand]);
+            non_word.splice(rand, 1);
+        }else {
+            var rand = randomInArray(filler);
+            ldt_stim_random.push(filler[rand]);
+            filler.splice(rand, 1);
+        }
+
+        var rand = Math.floor(Math.random() * 2);
+        if (rand == 0) {
+            if (filler.length > 0) {
+                var rand = randomInArray(filler);
+                ldt_stim_random.push(filler[rand]);
+                filler.splice(rand, 1);
+            }else {
+                var rand = randomInArray(non_word);
+                ldt_stim_random.push(non_word[rand]);
+                non_word.splice(rand, 1);
+            }  
+        }else {
+            if (non_word.length > 0) {
+                var rand = randomInArray(non_word);
+                ldt_stim_random.push(non_word[rand]);
+                non_word.splice(rand, 1);
+            }else {
+                var rand = randomInArray(filler);
+                ldt_stim_random.push(filler[rand]);
+                filler.splice(rand, 1);
+            } 
+        }
 
         if (filler.length > 0) {
             var rand = randomInArray(filler);
@@ -81,18 +110,14 @@ function randomizeSoundsTrial1(array) {
             non_word.splice(rand, 1);
         }
 
-        var rand = randomInArray(non_word);
-        ldt_stim_random.push(non_word[rand]);
-        non_word.splice(rand, 1);
-
-        if (filler.length > 0) {
-            var rand = randomInArray(filler);
-            ldt_stim_random.push(filler[rand]);
-            filler.splice(rand, 1);
-        }else {
+        if (non_word.length > 0) {
             var rand = randomInArray(non_word);
             ldt_stim_random.push(non_word[rand]);
             non_word.splice(rand, 1);
+        }else {
+            var rand = randomInArray(filler);
+            ldt_stim_random.push(filler[rand]);
+            filler.splice(rand, 1);
         }
 
         var rand = Math.floor(Math.random() * 2);
@@ -118,6 +143,9 @@ function randomizeSoundsTrial1(array) {
             } 
         }
     }
+    console.log(ldt_stim_random);
+    console.log(non_word);
+    console.log(filler);
 }
 
 function randomizeSoundsTrial2(array) {
