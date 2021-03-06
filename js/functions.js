@@ -184,7 +184,7 @@ function randomizeSoundsTrial2(array) {
         pct_stim_random.push(vis[i]);
         pct_stim_random.push(lig[i]);
         pct_stim_random.push(wit[i]);
-        pct_stim_random.push(vis[i]);
+        pct_stim_random.push(bid[i]);
         pct_stim_random.push(kist[i]);
     }
 }
